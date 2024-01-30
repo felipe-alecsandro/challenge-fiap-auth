@@ -1,11 +1,11 @@
 version: '3.7'
 
 services:
-  db:
+  auth_db:
     image: postgres
-    container_name: db
+    container_name: auth_db
     environment:
-      - POSTGRES_DB=challengedb
+      - POSTGRES_DB=auth_db
       - POSTGRES_USER=fiap
       - POSTGRES_PASSWORD=fiap
     volumes:
@@ -18,18 +18,18 @@ services:
   web:
     #build: .
     image: deboraferrarids2/challenge_web:v2.0
-    container_name: app
+    container_name: auth_app
     volumes:
       - .:/usr/src/app
       - ./logs:/usr/src/app/logs
     ports:
       - "5000:5000"
     depends_on:
-      - db
+      - auth_db
     networks:
       - project-network
     restart: always
-    command: bash -c "sleep 10 && python manage.py makemigrations && python manage.py migrate && python manage.py create_superuser && python manage.py populate_products && python manage.py runserver 0.0.0.0:5000" 
+    command: bash -c "sleep 10 && python manage.py makemigrations && python manage.py migrate && python manage.py create_superuser && python manage.py runserver 0.0.0.0:5000" 
 
 volumes:
   data:

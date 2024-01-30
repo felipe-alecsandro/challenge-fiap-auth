@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'user_auth',
-    'order',
-    'payment',
 ]
 
 
@@ -129,10 +127,10 @@ import os
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'challengedb',
+        'NAME': 'auth_db',
         'USER': 'fiap',
         'PASSWORD': 'fiap',
-        'HOST': 'db',
+        'HOST': 'auth_db',
         'PORT': '5432'
     }
 }
