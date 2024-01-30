@@ -18,18 +18,10 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import routers
 from user_auth.views import UserViewSet, signin
-from order.views import ProductViewSet, OrderViewSet, OrderItemsViewSet
-from payment.views import CheckoutViewset, TransactionWebhookView
-
 
 router = routers.DefaultRouter()
 
-router.register('user', UserViewSet)
-router.register('products', ProductViewSet)
-router.register('order', OrderViewSet, basename='order')
-router.register('items', OrderItemsViewSet)
-router.register('payment', CheckoutViewset)
-
+router.register('user', UserViewSet, basename='user')
 
 
 
@@ -38,6 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('signin/', signin, name='signin'),
     #path('user/<int:pk>/delete/', delete_user, name='delete_user'),
-    path('webhook/', TransactionWebhookView.as_view(), name='webhook'),
+    path('user/', UserViewSet.create, name='user'),
+
 ]
 
